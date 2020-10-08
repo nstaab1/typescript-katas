@@ -3,6 +3,18 @@
   "version": "1.0.0",
   "description": "Code Katas",
   "main": "index.js",
+  "jest": {
+    "roots": [
+      "./src"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.+(ts|tsx|js)",
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    }
+  },
   "scripts": {
     "test": "jest --verbose",
     "start": "rimraf ./build && tsc && node build/index.js"
