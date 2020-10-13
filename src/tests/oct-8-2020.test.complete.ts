@@ -1,4 +1,4 @@
-import { OctoberEighth } from "../oct-8-2020";
+import { OctoberEighth } from "../code/oct-8-2020";
 
 describe('isSquare tests', () => {
     let thisClass: OctoberEighth; 

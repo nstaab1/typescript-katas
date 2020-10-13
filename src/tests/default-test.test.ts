@@ -1,4 +1,4 @@
-import { DefaultTest } from "../default-test";
+import { DefaultTest } from "../code/default-test";
 
 test('basic', () => {
     let thisClass = new DefaultTest();
