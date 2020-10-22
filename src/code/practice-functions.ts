@@ -42,4 +42,48 @@ export class PracticeFunctions {
         // I could have used .map because that already creates an array
     }
 
+    // https://www.codewars.com/kata/5616868c81a0f281e500005c/train/typescript
+    public rank(names: string, nameWeights: number[], rankToFind: number): string {
+        const  alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+        if (!names || names.length <= 0 ) {
+            return 'No participants';
+        }
+
+        if (names.split(',').length < rankToFind ) {
+            return 'Not enough participants';
+        }
+
+        const nameValues: NameRank[] = names.split(',').map(
+            (name: string, index) => {
+                let nameValue = name.length;
+                for (const char of name) {
+                    let num = alphabet.indexOf(char.toLowerCase());
+                    nameValue += num + 1;
+                }
+                return {value: nameValue * nameWeights[index], name}
+            }
+        );
+
+        nameValues.sort((a: NameRank, b: NameRank) => {
+            if (b.value === a.value) {
+                if (b.name.toLowerCase() < a.name.toLowerCase()) {
+                    return 1;
+                } else if (b.name.toLowerCase() > a.name.toLowerCase()) {
+                    return -1
+                } else {
+                    return 0;
+                }
+            } else {
+                return b.value - a.value;
+            }
+        })
+        return nameValues[rankToFind - 1].name;
+    }
+
+}
+
+interface NameRank {
+    value: number,
+    name: string
 }
