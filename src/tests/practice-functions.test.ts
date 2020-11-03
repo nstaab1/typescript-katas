@@ -38,7 +38,7 @@ describe.skip('Street Fighter Function', () => {
 
 })
 
-describe('Prize Draw Tests', () => {
+describe.skip('Prize Draw Tests', () => {
     let thisClass: PracticeFunctions;
 
     beforeEach(() => {
@@ -69,3 +69,68 @@ describe('Prize Draw Tests', () => {
         expect(res).toEqual('Lagon');
     });
 })
+
+describe.skip('Base 64', () => {
+    let thisClass: PracticeFunctions;
+
+    beforeEach(() => {
+        thisClass = new PracticeFunctions();
+    });
+     
+    test('Converts string  to Base 64', () => {
+        let enc = thisClass.toBase64('this is a string!!');
+        expect(enc).toEqual('dGhpcyBpcyBhIHN0cmluZyEh');
+    });
+
+    test('Converts base64 to string', () => {
+        let enc = thisClass.fromBase64('dGhpcyBpcyBhIHN0cmluZyEh');
+        expect(enc).toEqual('this is a string!!');
+    });
+})
+
+describe('Maze Runner', () => {
+    let thisClass: PracticeFunctions;
+    let maze = [[1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,3],
+                [1,0,1,0,1,0,1],
+                [0,0,1,0,0,0,1],
+                [1,0,1,0,1,0,1],
+                [1,0,0,0,0,0,1],
+                [1,2,1,0,1,0,1]];
+
+    beforeEach(() => {
+        thisClass = new PracticeFunctions();
+    });
+     
+    test('Expect to finish', () => {
+        let enc = thisClass.mazeRunner(maze,["N","N","N","N","N","E","E","E","E","E"])
+        expect(enc).toEqual('Finish');
+    });
+
+    test('Expect to finish', () => {
+        let enc = thisClass.mazeRunner(maze,["N","N","N","N","N","E","E","S","S","E","E","N","N","E"])
+        expect(enc).toEqual('Finish');
+    });
+
+    test('Expect to finish', () => {
+        let enc = thisClass.mazeRunner(maze,["N","N","N","N","N","E","E","E","E","E","W","W"])
+        expect(enc).toEqual('Finish');
+    });
+
+    test('Expect to be Dead', () => {
+        let enc = thisClass.mazeRunner(maze,["N","N","N","W","W"])
+        expect(enc).toEqual('Dead');
+    });
+
+    test('Expect to be Dead', () => {
+        let enc = thisClass.mazeRunner(maze,["N","N","N","N","N","E","E","S","S","S","S","S","S"])
+        expect(enc).toEqual('Dead');
+    });
+
+    test('Expect to be Lost', () => {
+        let enc = thisClass.mazeRunner(maze,["N","E","E","E","E"])
+        expect(enc).toEqual('Lost');
+    });
+
+})
+

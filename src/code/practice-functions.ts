@@ -1,3 +1,5 @@
+import { NameRank } from "./interfaces-class";
+
 export class PracticeFunctions {
     // Street Fighter Character Selection
     // https://www.codewars.com/kata/5853213063adbd1b9b0000be/train/typescript
@@ -81,9 +83,65 @@ export class PracticeFunctions {
         return nameValues[rankToFind - 1].name;
     }
 
+    // https://www.codewars.com/kata/5616868c81a0f281e500005c/train/typescript
+    public toBase64(str: string): string {
+        return Buffer.from(str).toString('base64');
+    }
+
+    public fromBase64(str: string): string {
+        return Buffer.from(str, 'base64').toString('ascii');
+    }
+
+    public mazeRunner(maze:number[][], directions:string[]): string{
+        // Good luck
+        let activePosition: ActivePosition = {activeArray: -1, activeIndex: -1}
+
+        maze.forEach(
+            (arr:number[], index) => {
+                if (arr.includes(2)) {
+                    activePosition = {activeArray: index, activeIndex: arr.indexOf(2)}
+                }
+            }
+        );
+
+        for (let direction of directions) {
+            switch(direction) {
+                case 'N':
+                    activePosition.activeArray--;
+                    // this.checkPosition(maze, activePosition);
+                    break;
+                case 'S':
+                    activePosition.activeArray++;
+                    // this.checkPosition(maze, activePosition);
+                    break;  
+                case 'E':
+                    activePosition.activeIndex++;
+                    // this.checkPosition(maze, activePosition);
+                    break;
+                case 'W':
+                    activePosition.activeIndex--;
+                    // this.checkPosition(maze, activePosition);
+                    break;
+                default:
+                    break;
+            }
+            try {
+                if (maze[activePosition.activeArray][activePosition.activeIndex] === undefined || maze[activePosition.activeArray][activePosition.activeIndex] === 1 ) {
+                    return 'Dead';
+                } else if (maze[activePosition.activeArray][activePosition.activeIndex] === 3) {
+                    return 'Finish';
+                }
+            } catch  (e) {
+                return 'Dead';
+            }
+
+        }
+        return 'Lost';
+    }
 }
 
-interface NameRank {
-    value: number,
-    name: string
+interface ActivePosition {
+    activeArray: number,
+    activeIndex: number
 }
+
